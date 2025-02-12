@@ -1,6 +1,14 @@
 <?php
 error_reporting(E_ALL ^ E_WARNING);
 
+// --- Polyfill for str_contains() (PHP < 8.0) ---
+if (!function_exists('str_contains')) {
+    function str_contains (string $haystack, string $needle): bool
+    {
+        return empty($needle) || strpos($haystack, $needle) !== false;
+    }
+}
+
 # Constants
 define("USER_AGENT", $_SERVER['HTTP_USER_AGENT']);
 define("IS_NEOS", str_contains(USER_AGENT, "NEOSSetup"));
@@ -9,7 +17,7 @@ define("IS_WGET", str_contains(USER_AGENT, "Wget"));
 # Use release2 if NEOS, else release3 (careful! wget assumes comma three)
 define("DEFAULT_STOCK_BRANCH", IS_NEOS ? "release2" : "release3");
 
-define("WEBSITE_URL", "https://smiskol.com");
+define("WEBSITE_URL", (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]");
 define("BASE_DIR", "/" . basename(__DIR__));
 
 function logData() {
