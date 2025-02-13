@@ -1,0 +1,20 @@
+{
+  /**
+   * For more details on how to configure Wrangler, refer to:
+   * https://developers.cloudflare.com/workers/wrangler/configuration/
+   */
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "tsk",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-02-04",
+  "observability": {
+    "enabled": true
+  },
+  "kv_namespaces": [
+    {
+      "binding": "__STATIC_CONTENT",
+      "id": "ea4c1b67cf244b24ac0f9ce48d30e325",
+      "preview_id": "f8c5819bed92417191ceb0601b84f241"
+    }
+  ]
+}
